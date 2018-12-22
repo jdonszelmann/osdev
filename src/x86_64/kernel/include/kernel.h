@@ -10,10 +10,7 @@
 
 #ifndef ASM_FILE
 #include <stdio.h>
-#include <video.h>
-#include <debug.h>
-#include <interrupts.h>
-#include <gdt.h>
+#include <printing.h>
 #endif
 
 

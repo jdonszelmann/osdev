@@ -2,7 +2,7 @@
 #ifndef STDIO_H
 #define STDIO_H
 
-#include <video.h>
+#include <printing.h>
 
 #include <stdint.h>
 #include <stdlib.h>

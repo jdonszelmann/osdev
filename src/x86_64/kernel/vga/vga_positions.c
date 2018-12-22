@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <vga.h>
 #include <IO.h>
-#include <video.h>
 
 
 void vga_setx(uint32_t x){

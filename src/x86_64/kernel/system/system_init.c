@@ -1,6 +1,5 @@
 
-#include <interrupts.h>
-#include <gdt.h>
+#include <kernel.h>
 #include <stdio.h>
 #include <vga.h>
 
@@ -18,9 +17,7 @@
 
 
 void system_init(){
-	INIT_SYSTEM("GDT",initialize_gdt);
-	INIT_SYSTEM("PIC",initialize_pic);
-	INIT_SYSTEM("IDT",initialize_interrupts);
+	kernel_set_printer(vga_putc);
 
 	vga_resetcolors();
-}
+}	

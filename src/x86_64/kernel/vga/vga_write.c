@@ -24,9 +24,4 @@ void vga_putc(char c){
 }
 
 
-void vga_puts(char * c){
-	for (;*c!=NULL;c++){
-		vga_putc(*c);
-	}
-}
 

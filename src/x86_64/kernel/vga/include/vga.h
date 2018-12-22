@@ -10,7 +10,6 @@
 
 
 void vga_putc(char);
-void vga_puts(char *);
 
 void vga_setbgcolor(vgacolor);
 void vga_setfgcolor(vgacolor);
