@@ -11,6 +11,9 @@
 #ifndef ASM_FILE
 #include <stdio.h>
 #include <printing.h>
+
+#include <gdt.h>
+
 #endif
 
 
