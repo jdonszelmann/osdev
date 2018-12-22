@@ -25,11 +25,17 @@ kernel:|harddrive
 harddrive:
 	dd if=/dev/zero of=$@ count=512
 
-run: all
+run-wsl: all
 	qemu-system-x86_64 harddrive --curses
 
-debug:
+debug-wsl: all
 	qemu-system-x86_64 -s -S harddrive --curses
+
+run: all
+	qemu-system-x86_64 harddrive
+
+debug-wsl: all
+	qemu-system-x86_64 -s -S harddrive
 
 clean:
 	rm -f harddrive
