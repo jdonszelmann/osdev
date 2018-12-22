@@ -7,10 +7,10 @@ mkdir -p iso/boot/grub
 cp $1 iso/boot/kernel
 
 cat > iso/boot/grub/grub.cfg <<EOF
-	set timeout=10
+	set timeout=0
 	set default=0
 
-	menuentry Spectre {
+	menuentry OSDEV {
 		multiboot2 /boot/kernel   # The multiboot command replaces the kernel command
 		boot
 	}

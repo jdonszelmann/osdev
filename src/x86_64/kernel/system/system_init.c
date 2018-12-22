@@ -18,6 +18,6 @@
 
 void system_init(){
 	kernel_set_printer(vga_putc);
-
+	vga_cls();
 	vga_resetcolors();
 }	
