@@ -41,9 +41,64 @@ boot_pagetable1:
 
 start:
 
+	movl $(boot_pagetable1 - KERNEL_BASE_ADDR), %edi
+
+	movl $0, %esi
+	movl $1023, %ecx #map 1023 pages. 1024 is for the vga buffer
+
+	map_kernel_pages_loop:
+		cmpl $(KERNEL_VIRT_START - KERNEL_BASE_ADDR), %esi
+		jl add_kernel_page_entry
+		
+		cmpl $(KERNEL_VIRT_END - KERNEL_BASE_ADDR), %esi
+		jge map_kernel_pages_done
+
+		#writable & present
+		movl %esi, %edx
+		orl $0x003, %edx
+		movl %edx, (%edi)
+
+
+		add_kernel_page_entry:
+
+		addl $4096, %esi #1 page is 4096 bytes
+		addl $4, %edi #1 page entry is 4 bytes
+		loop map_kernel_pages_loop #until ecx = 0
+
+	map_kernel_pages_done:
+
+	#1 page for vga memory
+	movl $(VGA_BUFFER_PHYS | 0x003), (boot_pagetable1 - KERNEL_BASE_ADDR + 1023 * 4)
+
+
+	movl $(boot_pagetable1 - KERNEL_BASE_ADDR + 0x003), (boot_page_directory - KERNEL_BASE_ADDR + 0)
+	movl $(boot_pagetable1 - KERNEL_BASE_ADDR + 0x003), (boot_page_directory - KERNEL_BASE_ADDR + 768 * 4)
+
+	#load the page directory in cr3
+	movl $(boot_page_directory - KERNEL_BASE_ADDR), %ecx
+	movl %ecx, %cr3
+
+	#enable paging
+	movl %cr0, %ecx
+	orl $0x80010000, %ecx
+	movl %ecx, %cr0		
+
+	#jump to paging
+	lea paging_start, %ecx
+	jmp *%ecx
+
+
+paging_start:
+	movl $0, boot_page_directory + 0
+
+	# Reload cr3 to force a TLB flush so the changes to take effect.
+	movl %cr3, %ecx
+	movl %ecx, %cr3
+
 	mov $stack_top, %esp
 	mov $stack_bottom, %ebp
 
+	addl $KERNEL_BASE_ADDR, %ebx
 	push %ebx
 	call kmain
 
