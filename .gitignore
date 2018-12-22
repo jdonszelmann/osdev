@@ -1,5 +1,6 @@
 # Binary output of the build process
 /out
 /HD_img
-build/
+**/build/**
+
 
