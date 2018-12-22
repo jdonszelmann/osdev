@@ -28,6 +28,9 @@ harddrive:
 run: all
 	qemu-system-x86_64 harddrive --curses
 
+debug:
+	qemu-system-x86_64 -s -S harddrive --curses
+
 clean:
 	rm -f harddrive
 

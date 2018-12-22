@@ -23,7 +23,7 @@ boot_disk: .byte 0x42
 bootmsg: .asciz "boot succesfull                            \r\n"
 badload: .asciz "error loading kernel from disk \r\n"
 oknow: .asciz "still ok \r\n"
-okload: .asciz "succesfully loaded kernel from disk"
+okload: .asciz "succesfully loaded kernel from disk \r\n"
 
 .section .stage1
 .code16
