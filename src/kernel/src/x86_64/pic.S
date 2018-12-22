@@ -17,9 +17,7 @@ You should have received a copy of the GNU General Public License
 along with gamelib-x64. If not, see <http://www.gnu.org/licenses/>.
 */
 
-.include "src/kernel/00_boot_vars.s"
-
-.file "src/kernel/pic.s"
+.include "src/kernel/src/x86_64/00_boot_vars.S"
 
 .section .kernel.data
 PIC_init_str:				.asciz "* Initializing PIC subsystem...\n"
@@ -34,6 +32,7 @@ SLAVE_DATA		= 0xA1
 
 .section .kernel
 
+.global init_PIC
 init_PIC:
 	enter	$0, $0
 

@@ -1,29 +1,9 @@
-/*
-This file is part of gamelib-x64.
 
-Copyright (C) 2014 Otto Visser
+#include <boot.h>
 
-gamelib-x64 is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+.section .stage3.data
 
-gamelib-x64 is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with gamelib-x64. If not, see <http://www.gnu.org/licenses/>.
-*/
-
-.include "src/bootloader/00_boot_vars.s"
-
-.file "src/bootloader/30_boot_long_64bit.s"
-
-.section .bootstrap64.data
-
-.section .bootstrap64
+.section .stage3
 .code64
 .global _cont64long
 
@@ -40,10 +20,6 @@ _cont64long:
 	mov		%ax, %ss				# setting SS; said to be unused, but seems used with interrupt handling anyway
 	and		$-16, %rsp				# ands RSP with 0xFFF...FFF0, aligning the stack with the next lowest 16-byte boundary. TODO needed?
 
-	push	$64
-	mov		$bit_str, %r8
-	# call	printf64
-	pop		%rax
 
 # load the kernel from disk
 

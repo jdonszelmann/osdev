@@ -1,56 +1,34 @@
-TARGET = amd64-elf-
+export version = 0.0.1
+export arch ?= x86_64
 
-# include local Makefile. Copy local.mk.template and adapt
-include local.mk
+#names
+export bootloader_fullname := bootloader-$(arch)
+export bootloader_PATH := src/bootloader
+export bootloader := $(bootloader_PATH)/build/$(bootloader_fullname)
 
-PREFIX=/usr
-COMPPATH=$(PREFIX)/bin
-CC = $(COMPPATH)/$(TARGET)gcc
-CXX = $(COMPPATH)/$(TARGET)g++
-AS = $(COMPPATH)/$(TARGET)as
-AR = $(COMPPATH)/$(TARGET)ar
-NM = $(COMPPATH)/$(TARGET)nm
-LD = $(COMPPATH)/$(TARGET)ld
-OBJDUMP = $(COMPPATH)/$(TARGET)objdump
-OBJCOPY = $(COMPPATH)/$(TARGET)objcopy
-RANLIB = $(COMPPATH)/$(TARGET)ranlib
-STRIP = $(COMPPATH)/$(TARGET)strip
-CFLAGS = -ffreestanding -mcmodel=large -mno-red-zone -mno-mmx -mno-sse -mno-sse2 -mno-sse3 -O3 -Wall -Wextra -W -g
+export kernel_fullname := kernel-$(arch)
+export kernel_PATH := src/kernel
+export kernel := $(kernel_PATH)/build/$(kernel_fullname)
 
-all: out/bootloader out/kernel Makefile
-	
-out/bootloader: out/boot.o src/bootloader/link_boot.ld | HD_img
-	$(LD) -nostdlib -T src/bootloader/link_boot.ld -o $@ out/boot.o
-	dd if=out/bootloader of=HD_img conv=notrunc
+.PHONY: bootloader all run
 
-out/kernel: out/kernel.o src/kernel/link_kernel.ld | HD_img
-	$(LD) -nostdlib -T src/kernel/link_kernel.ld -o $@ out/kernel.o
-	dd if=out/kernel of=HD_img bs=512 seek=17 conv=notrunc
+all: bootloader kernel
 
-out/boot.o: src/bootloader/*.s | out
-	$(AS) src/bootloader/*.s -o $@
+bootloader:|harddrive
+	$(MAKE) -f $(bootloader_PATH)/Makefile
+	dd if=$(bootloader) of=harddrive conv=notrunc
 
-out/kernel.o: src/kernel/*.s src/game/*.s | out
-	$(AS) src/kernel/*.s src/game/*.s -o $@
+kernel:|harddrive
+	$(MAKE) -f $(kernel_PATH)/Makefile
+	dd if=$(kernel) of=harddrive bs=512 seek=17 conv=notrunc
 
-HD_img:
+harddrive:
 	dd if=/dev/zero of=$@ count=512
 
-qemu: all
-	qemu-system-x86_64 HD_img
-
-kvm: all
-	qemu-system-x86_64 -enable-kvm -cpu host HD_img
-
-bochs: all
-	bochs
-
-out:
-	mkdir out
+run: all
+	qemu-system-x86_64 harddrive --curses
 
 clean:
-	rm -f HD_img
-	rm -rf out
+	rm -f harddrive
 
-.PHONY: clean all kvm qemu 
 

@@ -17,9 +17,7 @@ You should have received a copy of the GNU General Public License
 along with gamelib-x64. If not, see <http://www.gnu.org/licenses/>.
 */
 
-.include "src/kernel/00_boot_vars.s"
-
-.file "src/kernel/ps2.s"
+.include "src/kernel/src/x86_64/00_boot_vars.S"
 
 .section .kernel.data
 ps2_init_str:		.asciz "* Initializing PS/2 subsystem...\n"
@@ -42,6 +40,7 @@ code_set1:	.byte 0, 0, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=
 			.byte 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .section .kernel
+.global init_ps2
 
 init_ps2:
 	enter	$0, $0
@@ -95,6 +94,7 @@ print_ps2_status:
 	leave
 	ret
 
+.global ps2_bottom_half
 ps2_bottom_half:
 	enter	$0, $0
 	push	%rax
@@ -113,6 +113,7 @@ ps2_bottom_half:
 	leave
 	ret
 
+.global ps2_getkey
 ps2_getkey:
 	enter	$0, $0
 	push	%rax

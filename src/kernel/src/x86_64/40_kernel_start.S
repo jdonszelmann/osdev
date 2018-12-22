@@ -17,9 +17,8 @@ You should have received a copy of the GNU General Public License
 along with gamelib-x64. If not, see <http://www.gnu.org/licenses/>.
 */
 
-.include "src/kernel/00_boot_vars.s"
+.include "src/kernel/src/x86_64/00_boot_vars.S"
 
-.file "src/kernel/40_kernel_start.s"
 
 .section .kernel.data
 largest_cpuid_str:	.asciz "Largest basic cpuid function number supported: %d\n"
@@ -108,6 +107,7 @@ _kernel_entry_point:
 	#call	init_gui			# last but not least: a text gui :)
 	call	gameInit
 
+.global halt
 # The end (for now)
 halt:
 #	cli
