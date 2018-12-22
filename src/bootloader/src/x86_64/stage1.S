@@ -35,6 +35,7 @@ _start:
 	#use longjmp to fix the code segment register
 	ljmp $0x0, $realstart
 realstart:
+
 	#setup string operations
 	cld
 	#set he data segment to the same as the code segment
@@ -44,8 +45,8 @@ realstart:
 	mov $bootaddr, %ebx
 	lss (%ebx), %sp
 
-	call bios_cls
-	mov $bootmsg, %si
+	// call bios_cls
+	// mov $bootmsg, %si
 	call bios_puts
 
 	# eax contains BIST. save to maybe use later
@@ -82,6 +83,7 @@ realstart:
 	mov boot_disk, %dl # disk to read from
 	int $0x13 # https://en.wikipedia.org/wiki/BIOS_interrupt_call
 	cmp $0, %ah # check result code
+	jne loadbad
 
 	# read the next sectors that contain the kernel
 	# reads go to es:bx, so set those first:
@@ -103,7 +105,8 @@ realstart:
 	jmp part2ok #start bootloader stage 2
 
 	#an error occured, halt
-	
+	loadbad:
+
 	mov $badload, %si
 	call bios_puts
 

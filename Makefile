@@ -34,7 +34,7 @@ debug-wsl: all
 run: all
 	qemu-system-x86_64 harddrive
 
-debug-wsl: all
+debug: all
 	qemu-system-x86_64 -s -S harddrive
 
 clean:

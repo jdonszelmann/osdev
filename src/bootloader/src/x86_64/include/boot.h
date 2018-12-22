@@ -3,7 +3,7 @@
 
 #define bootaddr 0x7C00
 #define bootaddr2 0x7C00
-#define kerneladdr 0x1000
+#define kerneladdr 0x10000
 
 #define video_mem_start 0xB8000
 
