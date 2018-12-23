@@ -2,12 +2,17 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <kernel.h>
+#include <stdint.h>
+#include <interrupts.h>
 
-#define PANIC(msg) panic(msg, __FILE__, __LINE__)
-#define ASSERT(b) ((b) ? (void) 0 : panic_assert(__FILE__, __LINE__, #b))
+struct registers;
 
-void panic(char* message, char* file, uint32_t line);
-void panic_assert(char* file, uint32_t line, char* desc);
+void print_registers(struct registers * r);
+
+#define PANIC(msg, args...) panic(__FILE__, __LINE__, msg, ##args)
+#define ASSERT(b, args...) ((b) ? (void) 0 : panic_assert(__FILE__, __LINE__, #b, ##args))
+
+void panic(char* file, uint32_t line,char* fmt, ...);
+void panic_assert(char* file, uint32_t line, char* fmt, ...);
 
 #endif

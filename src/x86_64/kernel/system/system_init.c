@@ -21,6 +21,7 @@ void system_init(){
 	kernel_set_printer(vga_putc);
 
 	INIT_SYSTEM("gdt & tss",init_gdt);
+	INIT_SYSTEM("idt",init_idt);
 
 	vga_cls();
 

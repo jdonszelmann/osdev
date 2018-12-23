@@ -102,6 +102,10 @@ paging_start:
 	push %ebx
 	call kmain
 
+	//force divbyzero for testing interrupts
+	// movl $0, %eax
+	// idiv %eax
+
 	cli
 kernel_hlt:
 	hlt

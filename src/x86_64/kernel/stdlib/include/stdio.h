@@ -14,6 +14,7 @@
 
 //printf.c
 int printf(char * format, ...);
+int vprintf(char * format, va_list valist);
 //itoa.c
 char *itoa(int, char *, int);
 //dtoa.c
