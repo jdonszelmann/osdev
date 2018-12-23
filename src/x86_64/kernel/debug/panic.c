@@ -1,16 +1,18 @@
 
-#include <kernel.h>
 #include <vga.h>
+#include <kernel.h>
 
-//TODO convert vga_cls and vga_sectcolor to a generalized method or first make sure we are in vga mode.
-
-void panic(char* message, char* file, uint32_t line){
+void panic(char* file, uint32_t line,char* fmt, ...){
 	asm volatile ("cli");
+	va_list valist;
+	va_start(valist,fmt);
+
+
 	vga_setcolor(Red,Black);
 	vga_cls();
 
 	printf("PANIC! \n");
-	printf(message);
+	vprintf(fmt, valist);
 	printf("\nat ");
 	printf(file);
 	printf(":");
@@ -20,17 +22,22 @@ void panic(char* message, char* file, uint32_t line){
 
 	printf("please reboot");  
 
+	va_end(valist);
+	
 	for (;;);
 }
 
-// same as above but after assertion failed
-void panic_assert(char* file, uint32_t line, char* desc){
+void panic_assert(char* file, uint32_t line, char* fmt, ...){
+	va_list valist;
+	va_start(valist,fmt);
+
+
 	asm volatile ("cli");
 	vga_setcolor(Red,Black);
 	vga_cls();
 
 	printf("ASSERTION-FAILED(");
-	printf(desc);
+	vprintf(fmt, valist);
 	printf(")\n at ");
 	printf(file);
 	printf(":");
@@ -38,6 +45,8 @@ void panic_assert(char* file, uint32_t line, char* desc){
 	printf("\n\n");
 
 	printf("please reboot");  
+
+	va_end(valist);
 
 	for (;;);
 }

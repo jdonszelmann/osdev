@@ -1,12 +1,22 @@
 
 #include <stdio.h>
 
-int printf(char *s, ...) {
+int printf(char *fmt, ...) {
+
+	va_list valist;
+	va_start(valist, fmt);
+
+	vprintf(fmt,valist);
+
+	va_end(valist);
+
+	return 0;
+}
+
+int vprintf(char * s, va_list valist) {
 	char buff[128];
 	char *buffer = buff;
 
-	va_list valist;
-	va_start(valist, s);
 
 	for (; *s != '\0'; s++) {
 		if (*s == '\n') {
@@ -28,6 +38,10 @@ int printf(char *s, ...) {
 					break;
 				case 'o': //Octal integer
 					itoa(va_arg(valist, int), buffer, 8);
+					kernel_puts(buffer);
+					break;
+				case 'b': //Binary integer
+					itoa(va_arg(valist, int), buffer, 2);
 					kernel_puts(buffer);
 					break;
 				case 'x': //Hexadecimal integer

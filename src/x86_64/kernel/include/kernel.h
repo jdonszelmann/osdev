@@ -10,9 +10,11 @@
 
 #ifndef ASM_FILE
 #include <stdio.h>
+#include <IO.h>
 #include <debug.h>
 #include <printing.h>
 #include <gdt.h>
+#include <interrupts.h>
 #endif
 
 
