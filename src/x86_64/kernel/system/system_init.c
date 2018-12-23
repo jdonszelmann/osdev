@@ -17,7 +17,12 @@
 
 
 void system_init(){
+	//allways first, else printing will triple fault
 	kernel_set_printer(vga_putc);
+
+	INIT_SYSTEM("gdt & tss",init_gdt);
+
 	vga_cls();
+
 	vga_resetcolors();
 }	

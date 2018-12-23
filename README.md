@@ -10,3 +10,7 @@ Basically we decided we needed a vacation project ok? Stuff like this happens al
 2. * for any old linux distribution run `make run`
     * for *WSL* run `run-wsl`
 3. debugging can be done by replacing `run` with `debug` in the previous commands.
+
+
+fr00dlinks:
+* https://github.com/stevej/osdev/tree/master/kernel
