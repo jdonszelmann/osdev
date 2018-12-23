@@ -11,8 +11,9 @@ void kmain(void * multiboot_structure){
 	
 	printf("Hello, world!\n");
 	
+	// PANIC("test %i", 10);
 
-
+	asm volatile ("int $30");
 
 
 }

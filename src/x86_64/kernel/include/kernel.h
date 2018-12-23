@@ -13,6 +13,9 @@
 #include <debug.h>
 #include <printing.h>
 #include <gdt.h>
+#include <idt.h>
+#include <IO.h>
+#include <interrupts.h>
 #endif
 
 

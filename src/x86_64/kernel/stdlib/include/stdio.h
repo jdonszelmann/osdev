@@ -13,6 +13,7 @@
 #define NULL 0
 
 //printf.c
+int vprintf(char * format, va_list valist);
 int printf(char * format, ...);
 //itoa.c
 char *itoa(int, char *, int);

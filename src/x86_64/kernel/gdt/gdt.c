@@ -15,7 +15,7 @@ void gdt_set_gate(int32_t num, uint32_t base, uint32_t limit, uint8_t access, ui
 	gdt[num].access = access;
 }
 
-
+//TODO testing and return false if tests failed
 bool init_gdt() {
 	
 	// GDT pointer and limits 
