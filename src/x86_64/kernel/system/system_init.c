@@ -22,6 +22,7 @@ void system_init(){
 
 	INIT_SYSTEM("gdt & tss",init_gdt);
 
+	vga_cls();
 
 	vga_resetcolors();
 }	
