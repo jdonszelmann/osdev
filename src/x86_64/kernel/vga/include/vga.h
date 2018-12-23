@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
-#define VGA_VIDEO_MEMORY ((uint16_t *)(0xC03FF000)) 
+#define VGA_VIDEO_MEMORY ((uint16_t *)(0xB8000)) 
 
 
 void vga_putc(char);

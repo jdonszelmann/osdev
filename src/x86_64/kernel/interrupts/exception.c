@@ -1,9 +1,7 @@
 
-#ifndef SERVICE_ROUTINES_H
-#define SERVICE_ROUTINES_H
+#include <kernel.h>
 
-
-char *serviceroutines_exception_messages[] = {
+char * exception_messages[32] = {
 	//0
 	"Division by zero",
 	"Debug",
@@ -42,6 +40,13 @@ char *serviceroutines_exception_messages[] = {
 	"Reserved"
 };
 
-irq_handler_t isrs_routines[32] = { NULL };
 
-#endif
+//TODO add custom installable exception handlers 
+void exception_handler(registers_t * reg) {
+	if(reg->int_no < 32) {
+    	irq_acknowledge(reg->int_no);
+		PANIC("Unhandled exception: [%d] %s\n",reg->int_no, exception_messages[reg->int_no]);
+	}else{
+		irq_handler(reg);
+	}
+}

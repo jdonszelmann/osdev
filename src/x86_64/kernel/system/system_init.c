@@ -17,14 +17,16 @@
 
 
 void system_init(){
+	vga_cls();
+	
 	//allways first, else printing will triple fault
 	kernel_set_printer(vga_putc);
 
 	INIT_SYSTEM("gdt & tss",init_gdt);
 	INIT_SYSTEM("idt",init_idt);
-	INIT_SYSTEM("irq",init_irq);
 
-	vga_cls();
+
+	// vga_cls();
 
 	vga_resetcolors();
 }	

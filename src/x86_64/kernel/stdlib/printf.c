@@ -40,6 +40,10 @@ int vprintf(char * s, va_list valist) {
 					itoa(va_arg(valist, int), buffer, 8);
 					kernel_puts(buffer);
 					break;
+				case 'b': //Binary integer
+					itoa(va_arg(valist, int), buffer, 2);
+					kernel_puts(buffer);
+					break;
 				case 'x': //Hexadecimal integer
 					itoa(va_arg(valist, int), buffer, 16);
 					kernel_puts(buffer);

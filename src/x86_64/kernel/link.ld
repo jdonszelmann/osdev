@@ -1,35 +1,32 @@
 ENTRY(start)
 OUTPUT_FORMAT(elf32-i386)
 
-KERNEL_VIRT_ADDR = 0xC0100000;
-KERNEL_PHYS_ADDR = 0x00100000;
-KERNEL_BASE_ADDR = (KERNEL_VIRT_ADDR - KERNEL_PHYS_ADDR);
 
 SECTIONS{
+    . = 1M;
 
-    . = KERNEL_VIRT_ADDR;
-
-    KERNEL_VIRT_START = .;
-
-    .text ALIGN (4K) : AT (ADDR (.text) - KERNEL_BASE_ADDR)
+    .text BLOCK(4K) : ALIGN(4K)
     {
         *(.multiboot)
         *(.text)
     }
-    .rodata ALIGN (4K) : AT (ADDR (.rodata) - KERNEL_BASE_ADDR)
+
+    .rodata BLOCK(4K) : ALIGN(4K)
     {
         *(.rodata)
     }
-    .data ALIGN (4K) : AT (ADDR (.data) - KERNEL_BASE_ADDR)
+ 
+    /* Read-write data (initialized) */
+    .data BLOCK(4K) : ALIGN(4K)
     {
         *(.data)
     }
-    .bss ALIGN (4K) : AT (ADDR (.bss) - KERNEL_BASE_ADDR)
+ 
+    /* Read-write data (uninitialized) and stack */
+    .bss BLOCK(4K) : ALIGN(4K)
     {
         *(COMMON)
         *(.bss)
         *(.stack)
     }
-
-    KERNEL_VIRT_END = .;
 }

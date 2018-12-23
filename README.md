@@ -14,3 +14,5 @@ Basically we decided we needed a vacation project ok? Stuff like this happens al
 
 fr00dlinks:
 * https://github.com/stevej/osdev/tree/master/kernel
+* https://github.com/littleosbook/littleosbook/
+* https://github.com/szhou42/osdev/
