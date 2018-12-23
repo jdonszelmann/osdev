@@ -8,8 +8,9 @@ void kmain(void * multiboot_structure){
 	UNUSED(multiboot_structure);
 
 	system_init();
-
+	
 	printf("Hello, world!\n");
+	
 
 
 
