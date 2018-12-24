@@ -8,9 +8,9 @@ void panic(char* file, uint32_t line,char* fmt, ...){
 	va_start(valist,fmt);
 
 
-	vga_setcolor(Red,Black);
-	vga_cls();
-
+	vga_setcolor(White,Red);
+	//vga_cls();
+	printf("\n");
 	printf("PANIC! \n");
 	vprintf(fmt, valist);
 	printf("\nat ");
@@ -33,8 +33,8 @@ void panic_assert(char* file, uint32_t line, char* fmt, ...){
 
 
 	asm volatile ("cli");
-	vga_setcolor(Red,Black);
-	vga_cls();
+	vga_setcolor(White,Red);
+	//vga_cls();
 
 	printf("ASSERTION-FAILED(");
 	vprintf(fmt, valist);
