@@ -7,7 +7,7 @@ uint64_t tick = 0;
 bool timer_callback()
 {
     tick++;
-    printf("%i", tick);
+    printf("%i\n", tick);
 
     return true;
 }

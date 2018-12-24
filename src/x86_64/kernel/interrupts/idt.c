@@ -16,7 +16,7 @@ void remap_PIC()
 	outportb(0x21, 0x0);
 	outportb(0xA1, 0x0);
 
-	outportb(0x21, 0xfd);
+	outportb(0x21, 0xfc);
 	outportb(0xa1, 0xff);
 
 	printf("PIC remap OK\n");
@@ -87,7 +87,7 @@ bool init_idt(void)
 	idt_set_entry(31, (uint32_t)exception31);
 
 	idt_set_entry(32, (uint32_t)irq0);
-	init_timer(50);
+	init_timer(1000);
 	//asm volatile("hlt");
 	idt_set_entry(33, (uint32_t)irq1);
 	init_keyboard();
