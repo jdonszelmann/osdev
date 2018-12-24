@@ -7,13 +7,16 @@ void remap_PIC()
 	outportb(0x20, 0x11);
 	outportb(0xA0, 0x11);
 	outportb(0x21, 0x20);
-	outportb(0xA1, 40);
+	outportb(0xA1, 0x40);
 	outportb(0x21, 0x04);
 	outportb(0xA1, 0x02);
 	outportb(0x21, 0x01);
 	outportb(0xA1, 0x01);
 	outportb(0x21, 0x0);
 	outportb(0xA1, 0x0);
+
+	outportb(0x21, 0xfd);
+	outportb(0xa1, 0xff);
 
 	printf("PIC remap OK\n");
 }
@@ -45,10 +48,9 @@ void idt_print_entry(uint32_t num)
 
 bool init_idt(void)
 {
+	asm volatile("cli");
 
 	uint32_t idt_ptr[2];
-
-	idt_set_entry(32, (uint32_t)irq0);
 
 	idt_set_entry(0, (uint32_t)exception0);
 	idt_set_entry(1, (uint32_t)exception1);
@@ -83,9 +85,9 @@ bool init_idt(void)
 	idt_set_entry(30, (uint32_t)exception30);
 	idt_set_entry(31, (uint32_t)exception31);
 
-
 	idt_set_entry(32, (uint32_t)irq0);
-	init_timer(100);
+	init_timer(50);
+	//asm volatile("hlt");
 	idt_set_entry(33, (uint32_t)irq1);
 	idt_set_entry(34, (uint32_t)irq2);
 	idt_set_entry(35, (uint32_t)irq3);
@@ -106,9 +108,11 @@ bool init_idt(void)
 	uint32_t idt_address = (uint32_t)IDT;
 	idt_ptr[0] = (sizeof(idt_entry_t) * 286) + ((idt_address & 0xffff) << 16);
 	idt_ptr[1] = idt_address >> 16;
+
 	remap_PIC();
 
 	load_idt(idt_ptr);
+
 	asm("sti");
 
 	return true;

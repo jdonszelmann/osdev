@@ -8,13 +8,17 @@ void irqmaster_handler(uint32_t intid){
 
 //TODO clean up with macros
 
+int64_t time = 0;
+// timer
 void irq0_handler(){
 	irqmaster_handler(0);
 	outportb(0x20, 0x20); //EOI
 }
- 
+
+// kbd
 void irq1_handler(){
 	irqmaster_handler(1);
+	printf("kbd");
 	outportb(0x20, 0x20); //EOI
 }
  
