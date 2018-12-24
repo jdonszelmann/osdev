@@ -9,4 +9,8 @@
 
 void init_timer(uint32_t freq);
 
+uint64_t ms_since_bootup();
+
+void sleep(uint64_t ms);
+
 #endif
