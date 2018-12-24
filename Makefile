@@ -16,7 +16,7 @@ linker_script := src/$(arch)/kernel/link.ld
 LFLAGS := -nostdlib -z max-page-size=0x1000	-m elf_i386
 
 #flags
-CFLAGS= -m32 -fno-pie -fno-builtin -O3 -nostdinc -nostdlib -ffreestanding -g -Wall -Wextra \
+CFLAGS= -m32 -fno-pie -fno-builtin -nostdinc -nostdlib -ffreestanding -g -Wall -Wextra \
                -Werror -I. -MMD -mno-red-zone -Wl,--build-id=none 
 # Wunused-variable will be ignored!
 

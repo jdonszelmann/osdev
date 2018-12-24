@@ -39,10 +39,12 @@ char *exception_messages[] = {
 	"Reserved"
 };
 
+//int32_t thicc = 0;
 
 void exceptionmaster_handler(uint32_t intid){
 	if(!interrupt_exec_handler(intid)){
 		PANIC("Exception occured: %s", exception_messages[intid]);
+		//printf("error %i\n", thicc++);
 	}
 }
 
