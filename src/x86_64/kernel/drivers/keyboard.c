@@ -1,13 +1,18 @@
 
 #include <interrupts.h>
 #include <keyboard.h>
+#include <serial.h>
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
 
-#define SC_MAX 57
+#define SC_MAX 0x57
 
-int8_t shift_in = 0;
+uint8_t modifiers = 0;
+
+key_command_t keys[40];
+uint8_t insert = 0;
+uint8_t pop = 0;
 
 const char *sc_name[] = {
 	"ERROR",	 "Esc",		"1", "2", "3", "4",		 "5",
@@ -33,39 +38,65 @@ const char sc_ascii[] = {
 	'J', 'K', 'L', ':',  '"',  '~', '?', '|',  'Z', 'X', 'C', 'V',
 	'B', 'N', 'M', '<',  '>',  '?', 0,   '*',  0,   ' '};
 
-char char_from_code(int8_t scancode) {
-	// if (strcmp((char*)sc_name[scancode], "LShift") == 0 ||
-	//     strcmp((char*)sc_name[scancode], "RShift") == 0)
-	// {
-	//     shift_in = 58;
-	//     return -1;
-	// }
-	// else if ((scancode > 0x80) &&
-	//          (strcmp((char*)sc_name[scancode - 0x80], "LShift") == 0 ||
-	//           strcmp((char*)sc_name[scancode - 0x80], "RShift") == 0))
-	// {
-	//     shift_in = 0;
-	//     return -1;
-	// }
-	// else
-	if(scancode > SC_MAX)
+char char_from_code(uint8_t scancode) {
+	if(scancode > SC_MAX) {
 		return -1;
-
-	else if(scancode == ENTER) {
+	} else if(scancode == ENTER) {
 		return '\n';
+	} else if(scancode == BACKSPACE) {
+		return '\b';
 	} else {
 		char letter = sc_ascii[scancode];
+		if(modifiers & 1) {
+			letter = sc_ascii[scancode + 58];
+		}
 		return letter;
 	}
 }
 
 bool kbd_handler() {
-	int8_t incode = inportb(0x60);
+	uint8_t incode = inportb(0x60);
+
+	switch(incode & ~0x80) {
+		case 0x2A:
+		case 0x36:
+			modifiers ^= 0b1;
+			break;
+
+		default:
+			break;
+	}
 	char res = char_from_code(incode);
-	if(res < 0) return true;
-	char text[2] = {res, '\0'};
-	printf("%x: %s\n", incode, text);
+	key_command_t cmd;
+	cmd.ascii = res;
+	cmd.modifiers = 0;
+	cmd.press = (incode & 0x80) != 0x80;
+	cmd.scancode = incode;
+	cmd.real = true;
+
+	keys[insert++ % 40] = cmd;
+
+	key_command_t kct = get_next();
+	if(kct.real && kct.press) {
+		char text[2] = {kct.ascii, '\0'};
+		printf(text);
+	} else {
+	}
+
+	// printf("0x%x: %s\n", incode, text);
 	return true;
 }
 
-void init_keyboard() { interrupt_register_handler(33, kbd_handler); }
+key_command_t get_next() {
+	if(insert == pop) {
+		key_command_t kct;
+		kct.real = false;
+		return kct;
+	}
+	return keys[(pop++) % 40];
+}
+
+void init_keyboard() {
+	outportb(0xF0, 0x01);
+	interrupt_register_handler(33, kbd_handler);
+}

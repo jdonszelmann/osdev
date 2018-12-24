@@ -6,6 +6,7 @@
 #include <timer.h>
 #include <IO.h>
 #include <keyboard.h>
+#include <serial.h>
 
 bool divbyzero()
 {
@@ -19,8 +20,12 @@ void kmain(void *multiboot_structure)
 	system_init();
 	// int i = 0;
 	// printf("%i",1/i);
+	write_serial_str("hello!");
 	printf("Hello, world!\n");
 
-	for(;;);
+	for(;;){
+		char str[2] = {read_serial(),'\0'};
+		printf(str);
+	};
 
 }
