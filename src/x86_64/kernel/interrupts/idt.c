@@ -1,6 +1,7 @@
 
 #include <kernel.h>
 #include <timer.h>
+#include <keyboard.h>
 
 void remap_PIC()
 {
@@ -89,6 +90,7 @@ bool init_idt(void)
 	init_timer(50);
 	//asm volatile("hlt");
 	idt_set_entry(33, (uint32_t)irq1);
+	init_keyboard();
 	idt_set_entry(34, (uint32_t)irq2);
 	idt_set_entry(35, (uint32_t)irq3);
 	idt_set_entry(36, (uint32_t)irq4);

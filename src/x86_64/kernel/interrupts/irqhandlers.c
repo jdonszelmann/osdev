@@ -17,8 +17,7 @@ void irq0_handler(){
 
 // kbd
 void irq1_handler(){
-	irqmaster_handler(1);
-	printf("kbd");
+	irqmaster_handler(1);			
 	outportb(0x20, 0x20); //EOI
 }
  

@@ -6,6 +6,8 @@
 
 
 
-int8_t char_from_code(int8_t keycode);
+char char_from_code(int8_t keycode);
+
+void init_keyboard();
 
 #endif
