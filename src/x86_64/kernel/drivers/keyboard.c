@@ -96,7 +96,8 @@ key_command_t get_next() {
 	return keys[(pop++) % 40];
 }
 
-void init_keyboard() {
+bool init_keyboard() {
 	outportb(0xF0, 0x01);
 	interrupt_register_handler(33, kbd_handler);
+	return true;
 }
