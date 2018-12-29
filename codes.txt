@@ -1,0 +1,256 @@
+00	ERR
+01	ESC
+02	1
+03	2
+04	3
+05	4
+06	5
+07	6
+08	7
+09	8
+0a	9
+0b	0
+0c	-
+0d	=
+0e	BACKSPACE
+0f	\t
+10	q
+11	w
+12	e
+13	r
+14	t
+15	y
+16	u
+17	i
+18	o
+19	p
+1a	[
+1b	]
+1c	\n
+1d	LCTRL
+1e	a
+1f	s
+20	d
+21	f
+22	g
+23	h
+24	j
+25	k
+26	l
+27	;
+28	'
+29	`
+2a	LSHIFT
+2b	\
+2c	z
+2d	x
+2e	c
+2f	v
+30	b
+31	n
+32	m
+33	,
+34	.
+35	/
+36	RSHIFT
+37	* (num)
+38	LALT
+39	SPACE
+3a	CAPS
+3b	F1
+3c	F2
+3d	F3
+3e	F4
+3f	F5
+40	F6
+41	F7
+42	F8
+43	F9
+44	F10
+45	NUMLOCK
+46	SCROLLOCK
+47	7 (num)
+48	8 (num)
+49	9 (num)
+4a	- (num)
+4b	4 (num)
+4c	5 (num)
+4d	6 (num)
+4e	+ (num)
+4f	1 (num)
+50	2 (num)
+51	3 (num)
+52	0 (num)
+53	. (num)
+54	ALT+SYSRQ (?)
+55	(?)
+56	(?)
+57	F11
+58	F12
+59	(?)
+5a	(?)
+5b	LWIN
+5c	RWIN
+5d	MENU
+5e	
+5f	
+60	
+61	
+62	
+63	
+64	
+65	
+66	
+67	
+68	
+69	
+6a	
+6b	
+6c	
+6d	
+6e	
+6f	
+70	
+71	
+72	
+73	
+74	
+75	
+76	
+77	
+78	
+79	
+7a	
+7b	
+7c	
+7d	
+7e	
+7f	
+80	ERR     (release)
+81	ESC     (release)
+82	1   (release)
+83	2   (release)
+84	3   (release)
+85	4   (release)
+86	5   (release)
+87	6   (release)
+88	7   (release)
+89	8   (release)
+8a	9   (release)
+8b	0   (release)
+8c	-   (release)
+8d	=   (release)
+8e	BACKSPACE   (release)
+8f	\t  (release)
+90	q   (release)
+91	w   (release)
+92	e   (release)
+93	r   (release)
+94	t   (release)
+95	y   (release)
+96	u   (release)
+97	i   (release)
+98	o   (release)
+99	p   (release)
+9a	[   (release)
+9b	]   (release)
+9c	\n  (release)
+9d	LCTRL   (release)
+9e	a   (release)
+9f	s   (release)
+a0	d   (release)
+a1	f   (release)
+a2	g   (release)
+a3	h   (release)
+a4	j   (release)
+a5	k   (release)
+a6	l   (release)
+a7	;   (release)
+a8	'   (release)
+a9	`   (release)
+aa	LSHIFT  (release)
+ab	\   (release)
+ac	z   (release)
+ad	x   (release)
+ae	c   (release)
+af	v   (release)
+b0	b   (release)
+b1	n   (release)
+b2	m   (release)
+b3	,   (release)
+b4	.   (release)
+b5	/   (release)
+b6	RSHIFT  (release)
+b7	* (num)     (release)
+b8	LALT    (release)
+b9	SPACE   (release)
+ba	CAPS    (release)
+bb	F1  (release)
+bc	F2  (release)
+bd	F3  (release)
+be	F4  (release)
+bf	F5  (release)
+c0	F6  (release)
+c1	F7  (release)
+c2	F8  (release)
+c3	F9  (release)
+c4	F10     (release)
+c5	NUMLOCK     (release)
+c6	SCROLLOCK   (release)
+c7	7 (num)     (release)
+c8	8 (num)     (release)
+c9	9 (num)     (release)
+ca	- (num)     (release)
+cb	4 (num)     (release)
+cc	5 (num)     (release)
+cd	6 (num)     (release)
+ce	+ (num)     (release)
+cf	1 (num)     (release)
+d0	2 (num)     (release)
+d1	3 (num)     (release)
+d2	0 (num)     (release)
+d3	. (num)     (release)
+d4	ALT+SYSRQ (?)   (release)
+d5	(?)     (release)
+d6	(?)     (release)
+d7	F11     (release)
+d8	F12     (release)
+d9	(?)     (release)
+da	(?)     (release)
+db	LWIN    (release)
+dc	RWIN    (release)
+dd	MENU    (release)
+de	
+df	
+e0	
+e1	
+e2	
+e3	
+e4	
+e5	
+e6	
+e7	
+e8	
+e9	
+ea	
+eb	
+ec	
+ed	
+ee	
+ef	
+f0	
+f1	
+f2	
+f3	
+f4	
+f5	
+f6	
+f7	
+f8	
+f9	
+fa	
+fb	
+fc	
+fd	
+fe	
+ff	

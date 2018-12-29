@@ -17,4 +17,6 @@ char char_from_code(uint8_t keycode);
 bool init_keyboard();
 key_command_t get_next();
 
+char* print_key_command(key_command_t);
+
 #endif
