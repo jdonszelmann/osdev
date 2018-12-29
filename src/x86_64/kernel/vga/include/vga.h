@@ -5,8 +5,9 @@
 #include <vga_colors.h>
 #include <stdio.h>
 #include <stdint.h>
+#include <bootconstants.h>
 
-#define VGA_VIDEO_MEMORY ((uint16_t *)(0xC03FF000)) 
+#define VGA_VIDEO_MEMORY ((uint16_t *)(KERNEL_BASE_ADDR + 0xB8000)) 
 
 
 void vga_putc(char);

@@ -4,6 +4,7 @@
 
 #include <stdint.h>
 #include <interrupts.h>
+#include <serial.h>
 
 struct registers;
 

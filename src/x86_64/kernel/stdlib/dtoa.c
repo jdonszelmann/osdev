@@ -17,10 +17,9 @@ static const double rounders[MAX_PRECISION + 1] =
 	0.0000000005,		// 9
 	0.00000000005		// 10
 };
-/*
-converts a double to a string
-*/
-char * dtoa(double f, char * buf, int precision){
+
+//converts a double to a string
+char * dtoa(double f, char * buf, int32_t precision){
 	char * ptr = buf;
 	char * p = ptr;
 	char * p1;
@@ -28,45 +27,51 @@ char * dtoa(double f, char * buf, int precision){
 	long intPart;
 
 	// check precision bounds
-	if (precision > MAX_PRECISION)
+	if (precision > MAX_PRECISION){
 		precision = MAX_PRECISION;
+	}
 
-	// sign stuff
-	if (f < 0)
-	{
+	if (f < 0){
 		f = -f;
 		*ptr++ = '-';
 	}
-	if (precision < 0)  // negative precision == automatic precision guess
-	{
-		if (f < 1.0) precision = 6;
-		else if (f < 10.0) precision = 5;
-		else if (f < 100.0) precision = 4;
-		else if (f < 1000.0) precision = 3;
-		else if (f < 10000.0) precision = 2;
-		else if (f < 100000.0) precision = 1;
-		else precision = 0;
+	
+	if (precision < 0){ // negative precision == automatic precision guess
+		if (f < 1.0){
+			precision = 6;
+		}else if (f < 10.0){
+			precision = 5;
+		}else if (f < 100.0){
+			precision = 4;
+		}else if (f < 1000.0){
+			precision = 3;
+		}else if (f < 10000.0){
+			precision = 2;
+		}else if (f < 100000.0){
+			precision = 1;
+		}else{
+			precision = 0;
+		}
 	}
 
 	// round value according the precision
-	if (precision)
+	if (precision){
 		f += rounders[precision];
+	}
 
 	// integer part...
 	intPart = f;
 	f -= intPart;
 
-	if (!intPart)
+	if (!intPart){
 		*ptr++ = '0';
-	else
-	{
+	}else{
 
 		// save start pointer
 		p = ptr;
 
 		// convert (reverse order)
-		while (intPart)
-		{
+		while (intPart){
 			*p++ = '0' + intPart % 10;
 			intPart /= 10;
 		}
@@ -75,8 +80,7 @@ char * dtoa(double f, char * buf, int precision){
 		p1 = p;
 
 		// reverse result
-		while (p > ptr)
-		{
+		while (p > ptr){
 			c = *--p;
 			*p = *ptr;
 			*ptr++ = c;
@@ -87,14 +91,12 @@ char * dtoa(double f, char * buf, int precision){
 	}
 
 	// decimal part
-	if (precision)
-	{
+	if (precision){
 		// place decimal point
 		*ptr++ = '.';
 
 		// convert
-		while (precision--)
-		{
+		while (precision--){
 			f *= 10.0;
 			c = f;
 			*ptr++ = '0' + c;

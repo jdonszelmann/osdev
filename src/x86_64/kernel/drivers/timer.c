@@ -1,13 +1,15 @@
 
 #include <timer.h>
 #include <interrupts.h>
+#include <util.h>
 
 uint64_t tick = 0;
 
-bool timer_callback()
+bool timer_callback(registers_t * regs)
 {
+    UNUSED(regs);
     tick++;
-    printf("%i\n", tick);
+    // printf("%i\n", tick);
 
     return true;
 }

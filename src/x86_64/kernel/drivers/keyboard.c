@@ -2,6 +2,8 @@
 #include <interrupts.h>
 #include <keyboard.h>
 #include <serial.h>
+#include <IO.h>
+#include <util.h>
 
 #define BACKSPACE 0x0E
 #define ENTER 0x1C
@@ -54,7 +56,8 @@ char char_from_code(uint8_t scancode) {
 	}
 }
 
-bool kbd_handler() {
+bool kbd_handler(registers_t * regs) {
+    UNUSED(regs);
 	uint8_t incode = inportb(0x60);
 
 	switch(incode & ~0x80) {

@@ -11,7 +11,7 @@ cat > iso/boot/grub/grub.cfg <<EOF
 	set default=0
 
 	menuentry OSDEV {
-		multiboot2 /boot/kernel   # The multiboot command replaces the kernel command
+		multiboot /boot/kernel   # The multiboot command replaces the kernel command
 		boot
 	}
 

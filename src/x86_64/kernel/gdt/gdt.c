@@ -1,5 +1,7 @@
 
-#include <kernel.h>
+#include <stdio.h>
+#include <gdt.h>
+#include <util.h>
 
 void gdt_set_gate(int32_t num, uint32_t base, uint32_t limit, uint8_t access, uint8_t gran) {
 	// Base Address 
