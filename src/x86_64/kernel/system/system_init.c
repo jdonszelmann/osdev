@@ -9,6 +9,10 @@
 #include <debug.h>
 #include <memory.h>
 #include <paging.h>
+#include <drivers.h>
+#include <timer.h>
+#include <keyboard.h>
+#include <rtc.h>
 
 
 #define INIT_SYSTEM(name, func, args...)                         \
@@ -29,6 +33,11 @@ void system_init() {
 
 	INIT_SYSTEM("serial", init_serial);
 	INIT_SYSTEM("gdt & tss", init_gdt);
+
+	add_driver_loader("timer",init_timer);
+	add_driver_loader("keyboard",init_keyboard);
+	add_driver_loader("rtc", rtc_init);
+
 	INIT_SYSTEM("idt", init_idt);
 	INIT_SYSTEM("memory", init_memory, 1024*1024*1024); //1GB for now. TODO: read memory map
 	INIT_SYSTEM("paging", init_paging);

@@ -7,6 +7,10 @@
 #include <IO.h>
 
 
-void init_timer(uint32_t freq);
+bool init_timer();
+
+uint64_t ms_since_bootup();
+
+void sleep(uint64_t ms);
 
 #endif
