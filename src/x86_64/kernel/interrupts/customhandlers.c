@@ -1,15 +1,17 @@
 
 
-#include <kernel.h>
+#include <stdio.h>
+#include <interrupts.h>
+#include <debug.h>
 
 interrupthandler handlers[IDTSIZE] = {NULL};
 
 //TODO find out why slow interrupt handlers cause double fault
 
-bool interrupt_exec_handler(uint32_t intid){
+bool interrupt_exec_handler(uint32_t intid, registers_t * regs){
 
 	if(handlers[intid] != NULL){
-		return handlers[intid]();
+		return handlers[intid](regs);
 	}
 
 	return false;

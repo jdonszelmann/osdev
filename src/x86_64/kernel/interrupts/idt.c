@@ -1,8 +1,9 @@
 
-#include <kernel.h>
-#include <timer.h>
-#include <keyboard.h>
-#include <drivers.h>
+#include <stdio.h>
+#include <timer.h> //to other module!
+#include <keyboard.h> //to other module
+#include <debug.h>
+
 
 void remap_PIC()
 {

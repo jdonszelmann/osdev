@@ -13,6 +13,7 @@ bool startswith(char * s1, char * s2);
 // bool endswith(char * s1, char * s2); not implemented yet
 char * strcpy(char * dst, char * src);
 char * strcat(char * dst, char * src);
+char * strcatc(char * dst, char src);
 uint32_t strcmp(char * s1, char * s2);
 uint32_t strlen(char * str);
 uint32_t strncmp(char * s1, char * s2, size_t n);

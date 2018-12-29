@@ -1,4 +1,6 @@
-#include <kernel.h>
+#include <stdio.h>
+#include <interrupts.h>
+#include <debug.h>
 
 char *exception_messages[] = {
 	//0
@@ -41,29 +43,21 @@ char *exception_messages[] = {
 
 //int32_t thicc = 0;
 
-void exceptionmaster_handler(uint32_t intid){
-	if(!interrupt_exec_handler(intid)){
+void exceptionmaster_handler(uint32_t intid, registers_t * regs){
+	if(!interrupt_exec_handler(intid,regs)){
 		PANIC("Exception occured: %s", exception_messages[intid]);
 		//printf("error %i\n", thicc++);
 	}
 }
 
-//fatal means as of now, unrecoverable / BSOD. no recovery will be attempted.
-void exceptionmaster_handler_fatal(uint32_t intid){
-	PANIC("Fatal exception occured: %s", exception_messages[intid]);
-}
 
 //TODO clean up with macros
 
 #define exceptionhandler(num) \
-	void exception##num##_handler(){ \
-		exceptionmaster_handler(num);\
+	void exception##num##_handler(registers_t * regs){ \
+		exceptionmaster_handler(num,regs);\
 	} 
 
-#define exceptionhandler_fatal(num) \
-	void exception##num##_handler(){ \
-		exceptionmaster_handler_fatal(num);\
-	} 
 
 
 exceptionhandler(0);//div by zero
@@ -74,12 +68,12 @@ exceptionhandler(4);
 exceptionhandler(5);
 exceptionhandler(6);
 exceptionhandler(7);
-exceptionhandler_fatal(8); //double fault
+exceptionhandler(8); //double fault
 exceptionhandler(9);
-exceptionhandler_fatal(10); //bad TSS
-exceptionhandler_fatal(11); //segment not present
-exceptionhandler_fatal(12); //stack fault
-exceptionhandler_fatal(13); //general protection fault
+exceptionhandler(10); //bad TSS
+exceptionhandler(11); //segment not present
+exceptionhandler(12); //stack fault
+exceptionhandler(13); //general protection fault
 exceptionhandler(14); //page fault
 exceptionhandler(15);
 exceptionhandler(16);

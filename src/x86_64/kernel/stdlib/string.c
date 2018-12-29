@@ -21,6 +21,14 @@ char * strcat(char *dst, char *src){
 	return dst;
 }
 
+char * strcatc(char *dst, char src){
+	uint32_t i = 0;
+	for (i = 0; dst[i] != 0; i++);
+	dst[i+0] = src;
+	dst[i+1] = 0;
+	return dst;
+}
+
 uint32_t strcmp(char *s1, char *s2){
 	for (uint32_t i = 0; ; i++){
 		if (s1[i] != s2[i]){
@@ -55,6 +63,7 @@ uint32_t strlen(char *str){
 	}
 	return 0;
 }
+
 
 bool starts_with(char *s1, char* s2){
 	if(strncmp(s1, s2, strlen(s2)) == 0){

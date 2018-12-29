@@ -1,6 +1,8 @@
 
 #include <serial.h>
 #include <IO.h>
+#include <stdio.h>
+#include <util.h>
 
 #define PORT 0x3f8 /* COM1 */
 
@@ -18,8 +20,7 @@ bool init_serial() {
 int serial_received() { return inportb(PORT + 5) & 1; }
 
 char read_serial() {
-	while(serial_received() == 0)
-		;
+	while(serial_received() == 0);
 
 	return inportb(PORT);
 }
@@ -39,3 +40,44 @@ void write_serial_str(char* s) {
         s++;
 	}
 }
+
+
+void printf_serial(char * fmt, ...){
+	va_list valist;
+	va_start(valist, fmt);
+
+	uint32_t length = vsprintf(NULL, fmt, valist);
+	char res[length];
+	vsprintf(res, fmt, valist);
+
+	write_serial_str(res);
+
+	va_end(valist);
+}
+
+//TODO seriallog (LOG macro) __file__ not working fsr
+void seriallog(uint32_t line, char * file, char * fmt, ...){
+
+	char res[100];
+	itoa(line,res,10);
+
+	write_serial_str(file);
+	write_serial_str(" at ");
+	write_serial_str(res);
+	write_serial_str(": ");
+
+	va_list valist;
+	va_start(valist, fmt);
+
+	uint32_t length = vsprintf(NULL, fmt, valist);
+	char res1[length];
+	vsprintf(res1, fmt, valist);
+
+	write_serial_str(res1);
+
+	write_serial_str("\n");
+
+	va_end(valist);
+}
+
+

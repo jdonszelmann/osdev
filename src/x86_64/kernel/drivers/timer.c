@@ -1,22 +1,26 @@
 
 #include <interrupts.h>
 #include <timer.h>
-#include <stdbool.h>
+#include <stdio.h>
+#include <util.h>
 
 uint64_t tick = 0;
 
-bool timer_callback() {
-	tick++;
-
-	return true;
+bool timer_callback(registers_t * regs)
+{
+    UNUSED(regs);
+    tick++;
+    return true;
 }
 
-uint64_t ms_since_bootup() { return tick; }
+uint64_t ms_since_bootup() { 
+  return tick; 
+}
+
 
 void sleep(uint64_t ms) {
 	uint64_t t = tick + ms;
-	while(tick < t)
-		;
+	while(tick < t);
 }
 
 bool init_timer() {
