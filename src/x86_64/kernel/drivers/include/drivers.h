@@ -1,7 +1,7 @@
 
 #ifndef DRIVERS_H
 #define DRIVERS_H
-#include <kernel.h>
+#include <stdio.h>
 
 #define DRIVER_MAX 256
 

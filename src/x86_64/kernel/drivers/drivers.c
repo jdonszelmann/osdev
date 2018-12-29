@@ -1,5 +1,7 @@
 
 #include <drivers.h>
+#include <stdio.h>
+#include <debug.h>
 
 driver_loader loaders[DRIVER_MAX];
 char* drivernames[DRIVER_MAX];

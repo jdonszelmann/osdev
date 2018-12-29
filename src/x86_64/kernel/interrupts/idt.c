@@ -3,6 +3,7 @@
 #include <timer.h> //to other module!
 #include <keyboard.h> //to other module
 #include <debug.h>
+#include <drivers.h>
 
 
 void remap_PIC()
