@@ -14,7 +14,7 @@ typedef struct key_command {
 
 char char_from_code(uint8_t keycode);
 
-void init_keyboard();
+bool init_keyboard();
 key_command_t get_next();
 
 #endif

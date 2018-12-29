@@ -9,8 +9,8 @@ datetime_t get_datetime() {
 	read_rtc();
 	datetime_t dt;
 	dt.second = second;
-	dt.minute = minute;
-	dt.hour = hour;
+	dt.minute = minute + minute_offset;
+	dt.hour = hour + hour_offset;
 	dt.day = day;
 	dt.month = month;
 	dt.year = year;
@@ -108,3 +108,13 @@ void read_rtc() {
 		if(year < CURRENT_YEAR) year += 100;
 	}
 }
+
+void rtc_hour_offset(uint8_t offset) {
+	hour_offset = offset;
+}
+
+void rtc_minute_offset(uint8_t offset) {
+	minute_offset = offset;
+}
+
+bool rtc_init() { return true; }

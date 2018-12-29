@@ -2,6 +2,7 @@
 #include <kernel.h>
 #include <timer.h>
 #include <keyboard.h>
+#include <drivers.h>
 
 void remap_PIC()
 {
@@ -87,10 +88,7 @@ bool init_idt(void)
 	idt_set_entry(31, (uint32_t)exception31);
 
 	idt_set_entry(32, (uint32_t)irq0);
-	init_timer(1000);
-	//asm volatile("hlt");
 	idt_set_entry(33, (uint32_t)irq1);
-	init_keyboard();
 	idt_set_entry(34, (uint32_t)irq2);
 	idt_set_entry(35, (uint32_t)irq3);
 	idt_set_entry(36, (uint32_t)irq4);
@@ -105,6 +103,8 @@ bool init_idt(void)
 	idt_set_entry(45, (uint32_t)irq13);
 	idt_set_entry(46, (uint32_t)irq14);
 	idt_set_entry(47, (uint32_t)irq15);
+
+	load_drivers();
 
 	/* fill the IDT descriptor */
 	uint32_t idt_address = (uint32_t)IDT;
